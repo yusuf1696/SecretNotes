@@ -18,7 +18,7 @@ label1.pack(pady=(15, 0))
 entry1 = tk.Entry(window, width=35, font=("Malgun Gothic",12))
 entry1.pack()
 
-label2 = tk.Label(window, text="Enter Your Secret", font=("Arial", 15))
+label2 = tk.Label(window, text="Enter Your Text", font=("Arial", 15))
 label2.pack(pady=(5, 0))
 
 text2 = tk.Text(window, width=45, height=15, font=("Malgun Gothic", 12))
@@ -51,8 +51,9 @@ def saving():
             entry3.delete(0, tk.END)
             text2.delete("1.0", tk.END)
             tk.messagebox.showinfo("Successful", "Secret notes saved")
-        except:
-            tk.messagebox.showerror("Error!")
+        except Exception as e:
+            print(f"Encryption error: {repr(e)}")
+            messagebox.showerror("Error", "An error occurred while saving the note.")
 
 def decryption():
     try:
@@ -66,8 +67,9 @@ def decryption():
             text2.insert(tk.END, decrypted)
         else:
             tk.messagebox.showerror("Error!", "Enter all fields!")
-    except:
-        tk.messagebox.showwarning("Error", "Wrong password or secret!")
+    except Exception as e:
+        print(f"Decryption error: {repr(e)}")
+        messagebox.showwarning("Access Denied", "Wrong password or corrupted secret data!")
 
 button1 = tk.Button(window, text="Save & Encrypt", command=saving)
 button1.pack(pady=10)
